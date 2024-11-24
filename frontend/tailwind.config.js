@@ -4,8 +4,16 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',  // Enable dark mode using class strategy
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customBlue: "#1E40AF", // Your custom color
+      },
+      fontFamily: {
+        customFont: ["'Poppins'", "sans-serif"], // Your custom font
+      },
+    },
   },
   plugins: [],
-}
+};

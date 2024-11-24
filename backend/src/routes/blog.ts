@@ -143,10 +143,35 @@ blogRouter.get('/:id', async (c) => {
             blog
         });
     } catch(e) {
-        c.status(411); // 4
+        c.status(411); 
         return c.json({
             message: "Error while fetching blog post"
         });
     }
 })
+
+blogRouter.delete('/:id', async (c) => {
+    const id = c.req.param("id"); 
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+
+    try {
+        await prisma.blog.delete({
+            where: {
+                id: Number(id),  
+            },
+        });
+
+        return c.json({
+            message: "Blog deleted successfully",
+        });
+    } catch (error) {
+        c.status(404);
+        return c.json({
+            message: "Blog not found or could not be deleted",
+        });
+    }
+});
+
 
